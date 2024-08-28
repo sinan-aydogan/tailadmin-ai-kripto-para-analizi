@@ -184,6 +184,19 @@ Senin bulacağın veriler: Teknik analiz yapaken aynı zamanda https://cryptonew
 
 ----
 
+Analizin Bölümleri:
+
+Ön Hazırlık(Temel analiz için veri toplama): Kripto para haberlerini oku ve haberin konusunu anlamaya çalış ve sonraki adımlarda hem borsada işlem gören coinleri değerlendirirken hemde portföydeki coinleri değerlendirirken teknik analize etkisini değerlendir. Temel analiz kapsamında bu haberlerin fiyat hareketleri üzerindeki olası etkilerini de göz önünde bulundur.
+
+1.Bölüm (Portföy Analizi): Portföydeki Coinlerin Güncel Değerlerini ve Borsada işlem gören coinlerin listesini kullanarak porföydeki coinler için ayrıca teknik analiz yap. Portföyün toplam değerinide tabloda göster. Coinlerin yükseliş trendinde olup olmadığını belirle. Coinlerin yükseliş trendinde olup olmadığını belirlerken son 7 günlük değerlerine bak. Portföydeki coinlerin 1 gün, 3 gün ve 7 gün sonraki değerlerini ön görmeye çalış. Hızlı değer kaybı potansiyeline karşı kullanıcıyı uyar. Sonuçları tablo halinde yazdır ve risk yönetimi için uygun stratejiler öner. 
+
+2.Bölüm (Piyasa Analizi): Borsada işlem gören coinlerin 7 günlük 5 dakikada bir alınmış kline datasına teknik analiz yap. RSI (Relative Strength Index), MACD (Moving Average Convergence Divergence), Fibonacci retracement, TRIX analizi, Bollinger Bandı, Ichimoku Clouds, ve Parabolic SAR indikatörlerini kullanarak derinlemesine analiz yap. Güçlü  yükseliş trendinde olan coinlerden başlayarak tabloyu sıralandır, en altta ise güçlü düşüş trendinde olan coinleri sırala. Sonuçları tablo halinde yazdır. Coinlerin %60'ı düşüş trendinde olduğunda özel bir başlıkta uyarı ver. Coinlerin %60'ı yükseliş trendinde olduğunda özel bir başlıkta öneri ver. 
+
+3.Bölüm (Piyasa fırsatları ve risklerinin değerlendirilmesi): Kullanıcının portföyünde bulunmayan ve projesi sağlam olan 5 adet yükseliş trendinde olan coin öner. Bu coinlerin teknik analiz tablolarını yazdır ve temel analiz kapsamında projelerinin gücünü değerlendir. Potansiyel kazanç miktarını yüzdesel olarak göster. Yükseliş trendinin kısa sürede mi, uzun vadede mi devam edeceğini detaylandır. Ayrıca, bu önerilerde risk yönetimi stratejileri sun.
+
+
+Analizler için kullanılacak veriler:
+
 Portföydeki coinler (coin: toplam adet): ${JSON.stringify(wallet)}
 
 Portföydeki Coinlerin Güncel Değerleri (coin: 1 adetin USDT cinsinden değeri): ${JSON.stringify(currentPricesOfPairs)}
@@ -191,14 +204,6 @@ Portföydeki Coinlerin Güncel Değerleri (coin: 1 adetin USDT cinsinden değeri
 Borsada işlem gören coinlerin listesi: ${JSON.stringify(pairs)}
 
 Borsada işlem gören coinlerin 7 günlüklük 5 dakikada bir alınmış kline datası: ${JSON.stringify(pairsKlineData)}
-
-1 ) Kripto para haberlerini oku ve haberin konusunu anlamaya çalış ve sonraki adımlarda hem borsada işlem gören coinleri değerlendirirken hemde portföydeki coinleri değerlendirirken teknik analize etkisini değerlendir. Temel analiz kapsamında bu haberlerin fiyat hareketleri üzerindeki olası etkilerini de göz önünde bulundur.
-
-2 ) Borsada işlem gören coinlerin 7 günlük 5 dakikada bir alınmış kline datasına teknik analiz yap. RSI (Relative Strength Index), MACD (Moving Average Convergence Divergence), Fibonacci retracement, TRIX analizi, Bollinger Bandı, Ichimoku Clouds, ve Parabolic SAR indikatörlerini kullanarak derinlemesine analiz yap. Güçlü  yükseliş trendinde olan coinlerden başlayarak tabloyu sıralandır, en altta ise güçlü düşüş trendinde olan coinleri sırala. Sonuçları tablo halinde yazdır. Coinlerin %60'ı düşüş trendinde olduğunda özel bir başlıkta uyarı ver. Coinlerin %60'ı yükseliş trendinde olduğunda özel bir başlıkta öneri ver. 
-
-3 ) Portföydeki Coinlerin Güncel Değerlerini ve Borsada işlem gören coinlerin listesini kullanarak porföydeki coinler için ayrıca teknik analiz yap. Portföyün toplam değerinide tabloda göster. Coinlerin yükseliş trendinde olup olmadığını belirle. Coinlerin yükseliş trendinde olup olmadığını belirlerken son 7 günlük değerlerine bak. Portföydeki coinlerin 1 gün, 3 gün ve 7 gün sonraki değerlerini ön görmeye çalış. Hızlı değer kaybı potansiyeline karşı kullanıcıyı uyar. Sonuçları tablo halinde yazdır ve risk yönetimi için uygun stratejiler öner. 
-
-4 ) Kullanıcının portföyünde bulunmayan ve projesi sağlam olan 5 adet yükseliş trendinde olan coin öner. Bu coinlerin teknik analiz tablolarını yazdır ve temel analiz kapsamında projelerinin gücünü değerlendir. Potansiyel kazanç miktarını yüzdesel olarak göster. Yükseliş trendinin kısa sürede mi, uzun vadede mi devam edeceğini detaylandır. Ayrıca, bu önerilerde risk yönetimi stratejileri sun.
 
 `
 
