@@ -1,6 +1,8 @@
 import getBtcWallet from "./exchange_services/btc_turk.js";
 import { runPrompt } from "./ai_services/gemini.js";
 import fs from "fs";
+import ExcelJS from 'exceljs';
+import moment from 'moment';
 
 const pairs = ["BTCUSDT",
     "AAVEUSDT",
@@ -128,9 +130,27 @@ const current_prices_of_pairs = async () => {
             });
 
             console.log('Güncel coin fiyatları alındı');
+            create_current_prices_of_pairs_excel(list);
         });
 
     return list;
+}
+
+const create_current_prices_of_pairs_excel = async (data) => {
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet('Current Prices');
+    
+    sheet.columns = [
+        { header: 'Pair', key: 'pair', width: 10 },
+        { header: 'Price', key: 'price', width: 15 }
+    ];
+
+    Object.entries(data).forEach(([pair, price]) => {
+        sheet.addRow({ pair, price });
+    });
+
+    await workbook.xlsx.writeFile('current_prices_of_pairs.xlsx');
+    console.log('Güncel coin fiyatları excel dosyası oluşturuldu');
 }
 
 const pairs_kline_data = async () => {
@@ -162,9 +182,40 @@ const pairs_kline_data = async () => {
 
     if (checkTotalRequestErrors.length === 0) {
         console.log('Kline data alındı');
+        create_kline_data_excel_file(list);
     }
 
     return list;
+}
+
+
+const create_kline_data_excel_file = async (data)=> {
+    const workbook = new ExcelJS.Workbook();
+    for (let [symbol, symbolData] of Object.entries(data)) {
+        const sheet = workbook.addWorksheet(symbol);
+        sheet.columns = [
+            { header: 'Timestamp', key: 't', width: 20 },
+            { header: 'High', key: 'h', width: 10 },
+            { header: 'Open', key: 'o', width: 10 },
+            { header: 'Low', key: 'l', width: 10 },
+            { header: 'Close', key: 'c', width: 10 },
+            { header: 'Volume', key: 'v', width: 15 }
+        ];
+
+        symbolData.t.forEach((time, index) => {
+            sheet.addRow({
+                t: moment.unix(time).format('YYYY-MM-DD HH:mm:ss'),
+                h: symbolData.h[index],
+                o: symbolData.o[index],
+                l: symbolData.l[index],
+                c: symbolData.c[index],
+                v: symbolData.v[index]
+            });
+        });
+    }
+
+    await workbook.xlsx.writeFile('kline_data.xlsx');
+    console.log('Kline data excel dosyası oluşturuldu');
 }
 
 const generatePrompt = (wallet, currentPricesOfPairs, pairsKlineData) => `
