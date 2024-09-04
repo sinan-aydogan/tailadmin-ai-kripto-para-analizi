@@ -1,7 +1,6 @@
 .env
+/.idea
 result.md
 prompt.txt
-result.md
-kline_data.xlsx
-current_prices_of_pairs.xlsx
+generated_files/*
 /node_modules

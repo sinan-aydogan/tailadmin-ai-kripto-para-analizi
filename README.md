@@ -25,8 +25,8 @@ Piyasa verileri kripto para borsalarının sağladığı halka açık api servis
 2. Gerekli bağımlılıkları yüklemek için `npm install` komutunu çalıştırın.
 3. `.env.example` dosyasının ismini `.env` olarak değiştirin ve ilgili api servisleri için temin ettiğini api anahtarını girin.
 4. Uygulamayı başlatmak için `npm run analiz` komutunu çalıştırın.
-5. Uygulama girdiğiniz veriler ile kripto para borsalarından çektiği veriler ile analizini tamamladığında `result.md` dosyasını oluşturacaktır. Analiz raporunuz bu dosyadır.
-6. Ayrıca uygulama `prompt.txt` dosyası oluşturacaktır. Varsayılan yapay zeka (Gemini Ai) servisini kullanmak istemiyorsanız, bu dosyaya diğer yapak zeka uygulamaları tarafından da yorumlatabilirsiniz. Bu uygulamanın dışında, bu uygulamanın ürettiği prompt metnini kullanırken halla başlıkta yer alan "Yasal Uyarı" metninin geçerliliği devam edecektir. Alacağınız tüm kararlar, portföyünüz zarara uğraması veya yasal kural uygulayıcılar tarafından yaptırım uygulanmasının tüm sorumluluğu kullanıya ait olacaktır.
+5. Uygulama girdiğiniz veriler ile kripto para borsalarından çektiği veriler ile analizini tamamladığında  `generated_files` klasörü altında `.xlsx` ve `.pdf` formatında veri dosyaları oluşturacaktır. Bu dosyaları kullanarak farklı dil modellerinde verileri analiz ettirebilirsiniz. Varsayılan analiz raporunuz `result.md` dosyasıdır. Her analiz yaptırdığınızda bu dosyalar yeniden oluşturulur.
+6. Bu uygulamanın dışında, bu uygulamanın ürettiği prompt metnini kullanırken halla başlıkta yer alan "Yasal Uyarı" metninin geçerliliği devam edecektir. Alacağınız tüm kararlar, portföyünüz zarara uğraması veya yasal kural uygulayıcılar tarafından yaptırım uygulanmasının tüm sorumluluğu kullanıya ait olacaktır.
 
 ## Katkıda Bulunma
 

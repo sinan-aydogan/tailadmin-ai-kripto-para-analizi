@@ -1,7 +1,8 @@
 import "dotenv/config"
 import crypto from "crypto"
+import ExcelJS from "exceljs";
 
-export default async function getBtcWallet() {
+export default async function getWallet() {
     const API_KEY = process.env.BTC_API_PUBLIC_KEY;
     const API_SECRET = process.env.BTC_API_SECRET_KEY
 
@@ -13,7 +14,7 @@ export default async function getBtcWallet() {
 
     let coins = {}
 
-    const response = fetch(uri, options)
+    fetch(uri, options)
         .then(res => res.json())
         .then(json => {
             for (let i = 0; i < json.data.length; i++) {
@@ -21,12 +22,11 @@ export default async function getBtcWallet() {
                 if ((Number(json.data[i].balance) > 0) && (json.data[i].asset !== 'TRY' ?? json.data[i].asset !== 'USDT')) {
 
                     let pair = json.data[i].asset + 'USDT'
-                    let balance = json.data[i].balance
-
-                    coins[pair] = balance
+                    coins[pair] = json.data[i].balance
                 }
             }
-            console.log(coins)
+
+            create_wallet_excel(coins)
         })
         .catch(err => console.error('error:' + err));
 
@@ -47,6 +47,23 @@ export default async function getBtcWallet() {
         }
     }
 
-
     return coins
+}
+
+
+const create_wallet_excel = async (data) => {
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet('BTC Turk Wallet');
+
+    sheet.columns = [
+        { header: 'Pair', key: 'pair', width: 10 },
+        { header: 'Quantity', key: 'quantity', width: 15 }
+    ];
+
+    Object.entries(data).forEach(([pair, quantity]) => {
+        sheet.addRow({ pair, quantity });
+    });
+
+    await workbook.xlsx.writeFile('generated_files/btc_turk_wallet.xlsx');
+    console.log('BTC Türk cüzdan bilgileri btc_turk_wallet.xlsx dosyasına kaydedildi.');
 }
