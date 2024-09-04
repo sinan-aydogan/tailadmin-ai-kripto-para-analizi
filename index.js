@@ -1,5 +1,5 @@
 import getWallet from "./exchange_services/btc_turk.js";
-import { runPrompt } from "./ai_services/gemini.js";
+import {runPrompt} from "./ai_services/gemini.js";
 import fs from "fs";
 import ExcelJS from 'exceljs';
 import moment from 'moment';
@@ -69,14 +69,14 @@ const current_prices_of_pairs = async () => {
 const create_current_prices_of_pairs_excel = async (data) => {
     const workbook = new ExcelJS.Workbook();
     const sheet = workbook.addWorksheet('Current Prices');
-    
+
     sheet.columns = [
-        { header: 'Pair', key: 'pair', width: 10 },
-        { header: 'Price', key: 'price', width: 15 }
+        {header: 'Pair', key: 'pair', width: 10},
+        {header: 'Price', key: 'price', width: 15}
     ];
 
     Object.entries(data).forEach(([pair, price]) => {
-        sheet.addRow({ pair, price });
+        sheet.addRow({pair, price});
     });
 
     await workbook.xlsx.writeFile('generated_files/current_prices_of_pairs.xlsx');
@@ -101,14 +101,14 @@ const pairs_kline_data = async () => {
                 if (!data.message) {
                     hasError ? hasError = false : null;
 
-                    if(data.s !== null){
+                    if (data.s !== null) {
                         list[pairs[i]] = data;
-                    }else{
+                    } else {
                         console.log('Tanımsız coin çifti: ', pairs[i]);
                     }
                 } else {
                     hasError = true;
-                    checkTotalRequestErrors.push({ pair: pairs[i], message: data.message });
+                    checkTotalRequestErrors.push({pair: pairs[i], message: data.message});
 
                     console.log(`Kline data alma hatası: ${JSON.stringify(data)}`);
                 }
@@ -124,17 +124,17 @@ const pairs_kline_data = async () => {
 }
 
 
-const create_kline_data_excel_file = async (data)=> {
+const create_kline_data_excel_file = async (data) => {
     const workbook = new ExcelJS.Workbook();
     for (let [symbol, symbolData] of Object.entries(data)) {
         const sheet = workbook.addWorksheet(symbol);
         sheet.columns = [
-            { header: 'Timestamp', key: 't', width: 20 },
-            { header: 'High', key: 'h', width: 10 },
-            { header: 'Open', key: 'o', width: 10 },
-            { header: 'Low', key: 'l', width: 10 },
-            { header: 'Close', key: 'c', width: 10 },
-            { header: 'Volume', key: 'v', width: 15 }
+            {header: 'Timestamp', key: 't', width: 20},
+            {header: 'High', key: 'h', width: 10},
+            {header: 'Open', key: 'o', width: 10},
+            {header: 'Low', key: 'l', width: 10},
+            {header: 'Close', key: 'c', width: 10},
+            {header: 'Volume', key: 'v', width: 15}
         ];
 
         symbolData.t.forEach((time, index) => {
@@ -188,17 +188,19 @@ const getAllData = async () => {
                 console.error('Dosyaya yazma hatası:', err);
             }
 
-            await Promise.all([
-                convertExcelToPDF('generated_files/btc_turk_wallet.xlsx', 'generated_files/btc_turk_wallet.pdf'),
-                convertExcelToPDF('generated_files/kline_data.xlsx', 'generated_files/kline_data.pdf'),
-                convertExcelToPDF('generated_files/current_prices_of_pairs.xlsx', 'generated_files/current_prices_of_pairs.pdf')
-            ]).then(async ()=>{
-                console.log('Excel dosyaları pdf dosyalarına dönüştürüldü ve prompt metni hazırlandı. Şimdi analiz yapmaya hazırsınız.');
+            if (process.env.GENERATE_ONLY_EXCEL !== 'true') {
 
-                await runPrompt(prompt);
-            });
+                await Promise.all([
+                    convertExcelToPDF('generated_files/btc_turk_wallet.xlsx', 'generated_files/btc_turk_wallet.pdf'),
+                    convertExcelToPDF('generated_files/kline_data.xlsx', 'generated_files/kline_data.pdf'),
+                    convertExcelToPDF('generated_files/current_prices_of_pairs.xlsx', 'generated_files/current_prices_of_pairs.pdf')
+                ]).then(async () => {
+                    console.log('Excel dosyaları pdf dosyalarına dönüştürüldü ve prompt metni hazırlandı. Şimdi analiz yapmaya hazırsınız.');
 
+                    await runPrompt(prompt);
 
+                });
+            }
         });
 }
 
